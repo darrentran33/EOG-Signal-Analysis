@@ -11,6 +11,7 @@ float deriv_sig_hor;
 int derivWidth = 5;
 char dir = 's';
 float conversionFactor = (5.0/1023);
+// bits to voltage conversion
 float baseline = 2.5;
 unsigned long int primed_vert[] = {0,0};
 unsigned long int primed_hor[] = {0,0};
@@ -65,12 +66,12 @@ void loop() {
         primed_vert[(int)(deriv_sig_vert>0)] = millis();
       }else{
         if (deriv_sig_vert<0){
-          dir='w';
+          dir='w'; //wheelchair goes forward
           digitalWrite(R, LOW);
           digitalWrite(G, HIGH);
           digitalWrite(B, LOW);
         }else{
-          dir='s';
+          dir='s'; //wheelchair stops
           digitalWrite(R, LOW);
           digitalWrite(G, LOW);
           digitalWrite(B, LOW);
@@ -81,12 +82,12 @@ void loop() {
         primed_hor[(int)(deriv_sig_hor>0)] = millis();
       }else{
         if (deriv_sig_hor<0){
-          dir='d';
+          dir='d'; //wheelchair goes left
           digitalWrite(R, HIGH);
           digitalWrite(G, LOW);
           digitalWrite(B, LOW);
         }else{
-          dir='a';
+          dir='a'; //wheelchair goes right
           digitalWrite(R, LOW);
           digitalWrite(G, LOW);
           digitalWrite(B, HIGH);
@@ -102,6 +103,7 @@ void loop() {
       primed_hor[0] = 0;
     if (millis()-primed_hor[1] > timeout)
       primed_hor[1] = 0;
+    // resets the motor position after timeout
 
 // Print values to screen; 
     Serial.print(threshold_vert);
@@ -136,7 +138,7 @@ float Average (float a[], int sizA){
 }
 
 float Derivative (float b[], int sizA){
-    return (b[sizA-1] - b[sizA-1-derivWidth]);
+    return (b[sizA] - b[sizA-derivWidth]);
 }
 
 float Peaks(float c[], int sizA) {
