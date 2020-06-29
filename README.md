@@ -4,3 +4,6 @@ This project was done to perform signal processing for electrooculography (EOG) 
 
 To acquire the signal, leads are placed on the face around the eyes to track horizontal as well as vertical movement. These are then relayed to an arduino where the signal processing is performed using a running average to filter the signals and derivative calculations to determine up/down and left/right movements. In the extent of my code, the derivative calculations are used to change the color of an RGB LED.
 
+<img src="https://github.com/darrentran33/EOG-Signal-Analysis/blob/master/Screenshots_EOG/EOG%20circuit.JPG" width="900" height="600">
+
+
